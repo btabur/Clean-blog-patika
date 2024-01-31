@@ -1,27 +1,31 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const ejs = require('ejs')
 const path = require('path');
-const ejs = require('ejs');
+const Post = require('./models/Post');
+
 const app = express();
 
+//connect db
+mongoose.connect('mongodb://127.0.0.1:27017/clean-blog-test-db');
+
 //template engine
-app.set('view engine', 'ejs');
+app.set("view engine","ejs")
+
 
 //middlewares
 app.use(express.static('public'));
 
-// const blog = {
-//   id: 1,
-//   title: 'Blog title',
-//   description: 'Blog description',
-// };
-// app.get('/', (req, res) => {
-//   res.send(blog);
-// });
+app.use(express.urlencoded({extended :true}))  
+app.use(express.json()) 
 
 
 //routes
-app.get('/', (req, res) => {
-  res.render('index')
+app.get('/', async(req, res) => {
+  const posts = await Post.find({})
+res.render('index',{
+  posts
+})
 });
 
 app.get('/about', (req, res) => {
@@ -34,10 +38,12 @@ app.get('/add', (req, res) => {
   res.render('add_post')
 });
 
-app.get('/post', (req, res) => {
+app.post('/post', async(req, res) => {
 
-  res.render('post')
+  await Post.create(req.body)
+  res.redirect('/')
 });
+
 
 app.listen(3000, () => {
   console.log('Sunucu Çalıştı');
