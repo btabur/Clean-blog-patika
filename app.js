@@ -75,6 +75,11 @@ app.put('/post/:id', async (req, res) => {
   res.redirect(`/post/${req.params.id}`)
 });
 
+app.delete('/post/:id', async (req, res) => {
+  await Post.findByIdAndDelete(req.params.id);
+  res.redirect('/');
+});
+
 
 app.listen(3000, () => {
   console.log('Sunucu Çalıştı');

@@ -21,11 +21,15 @@
       
       </div>
       <div class="d-flex gap-2 position-relative  z-3  ">
-        <a class="m-3 btn-info px-5 py-2 text-white " href="/post/edit/<%= post._id %>"> Güncelle</a>
-        <a class="m-3 btn-danger  px-5 py-2 text-white " href=""> Sil</a>
+        <a class="m-3 btn-info px-5 py-2 text-white "
+        href="/post/edit/<%= post._id %>"
+          
+          > Güncelle</a>
+        <a class="m-3 btn-danger  px-5 py-2 text-white "   onclick="return confirm('Are you sure ?')"  href="/post/<%= post._id %>?_method=DELETE"> Sil</a>
       </div>
      
     </div>
+
   </header>
 
   <%- include('partials/_footer') -%>
