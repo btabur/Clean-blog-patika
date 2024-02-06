@@ -9,8 +9,11 @@ const pageController = require('./controllers/pageController');
 
 const app = express();
 
+//btabur0323
+//pG8TYylYgR8Bd0cX
+
 //connect db
-mongoose.connect('mongodb://127.0.0.1:27017/clean-blog-test-db');
+mongoose.connect('mongodb+srv://btabur0323:pG8TYylYgR8Bd0cX@cluster0.zxqeyrp.mongodb.net/');
 
 //template engine
 app.set('view engine', 'ejs');
@@ -42,6 +45,7 @@ app.put('/post/:id', postController.updatePost);
 
 app.delete('/post/:id', postController.deletePost);
 
-app.listen(3000, () => {
+const port = process.env.PORT || 5000
+app.listen(port, () => {
   console.log('Sunucu Çalıştı');
 });
